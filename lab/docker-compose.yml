@@ -1,0 +1,22 @@
+name: webminh01
+
+services:
+  webmin:
+    image: webmin-lab:2.670
+    hostname: webminh01
+    pull_policy: never
+    init: true
+    restart: "no"
+    mem_limit: 512m
+    ports:
+      - "127.0.0.1:18490:10000"
+    volumes:
+      - ./plant.sh:/plant.sh:ro
+    command: ["/bin/bash", "/plant.sh"]
+    environment:
+      WEBMIN_CONFIG: /etc/webmin
+      WEBMIN_VAR: /var/webmin
+      PERLLIB: /usr/share/webmin
+      LIBROOT: /usr/share/webmin
+    labels:
+      lab: WEBMIN-H01-APACHE-SHOW
